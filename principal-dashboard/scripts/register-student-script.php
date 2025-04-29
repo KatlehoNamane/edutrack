@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($conn->query($sql)) {
             $success = "Registration successful!";
-            header("Location: ../index.php");
+            header("Location: ../register-student.php");
             exit;
         } else {
             $error = "Registration failed: " . $conn->error;

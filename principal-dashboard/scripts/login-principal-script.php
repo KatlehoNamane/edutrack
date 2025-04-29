@@ -13,6 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $schoolName = mysqli_real_escape_string($conn, trim($_POST['school-name']));
         $email      = mysqli_real_escape_string($conn, trim($_POST['email']));
         $pass       = $_POST['password'];
+        $subjects   = $_POST['subjects'];
+        $subjectList = array_map('trim', explode(',', $subjects)); // Convert to array
 
         $parts      = explode(' ', $fullName, 2);
         $firstName  = mysqli_real_escape_string($conn, $parts[0]);
@@ -43,6 +45,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_id'] = $newId;
                 $_SESSION['role'] = $role;
                 $_SESSION['school_name'] = $schoolName;
+                // Now insert each subject into teacher_subjects table
+            $insertError = false;
+            foreach ($subjectList as $subject) {
+                $subjectEscaped = mysqli_real_escape_string($conn, $subject);
+                $subjectId = uniqid("", true);
+                $subSql = "
+                    INSERT INTO school_subjects (id, principal_id, school_name, subject)
+                    VALUES ('$subjectId', '$newId', '$schoolName' ,'$subjectEscaped')
+                ";
+                if (!$conn->query($subSql)) {
+                    $insertError = true;
+                    $error = "Subject insertion failed: " . $conn->error;
+                    break;
+                }
+            }
+
+            if (!$insertError) {
+                $_SESSION['success'] = "Registration successful!";
+            } else {
+                $_SESSION['error'] = $error;
+            }
+                $_SESSION['school_subjects'] = $subjects;
                 header("Location: ./index.php");
                 exit;
             } else {
@@ -56,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = mysqli_real_escape_string($conn, trim($_POST['email']));
         $pass  = $_POST['password'];
 
-        $sql = "SELECT id, password, role, school_name FROM users WHERE email = '$email' LIMIT 1";
+        $sql = "SELECT * FROM users WHERE email = '$email' LIMIT 1";
         $res = $conn->query($sql);
 
         if ($res && $res->num_rows === 1) {
@@ -66,6 +90,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['role'] = $user['role'];
                     $_SESSION['school_name'] = $user['school_name'];
+
+
+                    // Fetch school subjects
+                    $principalId = $user['id'];
+                    $subjectSql = "SELECT subject FROM school_subjects WHERE principal_id = '$principalId'";
+                    $subjectRes = $conn->query($subjectSql);
+                    $subjects = [];
+
+                    if ($subjectRes && $subjectRes->num_rows > 0) {
+                        while ($row = $subjectRes->fetch_assoc()) {
+                            $subjects[] = $row['subject'];
+                        }
+                    }
+
+                    $_SESSION['school_subjects'] = $subjects;
                     header("Location: ./index.php");
                     exit;
                 } else {

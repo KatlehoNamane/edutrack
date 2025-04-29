@@ -48,36 +48,48 @@ if (!empty($_GET['search'])) {
     $search = $term;
 }
 
+$principalId = $_SESSION['user_id'];
+
+$current = [];
+$res = $conn->query("
+    SELECT subject 
+      FROM school_subjects 
+     WHERE principal_id = '$principalId'
+     ORDER BY created_at
+");
+if ($res) {
+    while ($row = $res->fetch_assoc()) {
+        $current[] = $row['subject'];
+    }
+    if (count($current) === 0) {
+      // no subjects defined yet — send the principal to the edit page
+      header('Location: edit-subjects.php');
+      exit;
+  }
+}
+
 $where  = 'WHERE ' . implode(' AND ', $conditions);
-$sql    = "
+$sql = "
   SELECT
-    id,
-    first_name,
-    last_name,
-    email,
-    role,
-    class_name,
-    school_name,
-    student_number 
-    FROM users
+    u.id,
+    u.first_name,
+    u.last_name,
+    u.email,
+    u.role,
+    u.class_name,
+    u.school_name,
+    u.student_number,
+    GROUP_CONCAT(ts.subject ORDER BY ts.subject SEPARATOR ', ') AS subjects
+  FROM users u
+  LEFT JOIN teacher_subjects ts ON u.id = ts.teacher_id
   $where
-  ORDER BY role, first_name
+  GROUP BY u.id
+  ORDER BY u.role, u.first_name
 ";
 
-// $sql    = "
-//   SELECT
-//     id,
-//     first_name,
-//     last_name,
-//     email,
-//     role,
-//     class_name,
-//     school_name
-//   FROM users
-//   ORDER BY role, first_name
-// ";
-
 $result = $conn->query($sql);
+
+
 
 if (isset($conn)) {
   $conn->close();

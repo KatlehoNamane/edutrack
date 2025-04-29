@@ -32,29 +32,33 @@ unset($_SESSION['error'], $_SESSION['success']);
     <?php endif; ?>
 
     <form method="POST" action="./scripts/register-teacher-script.php" class="space-y-4">
-      <div>
-        <label class="block mb-1 font-medium">Full Name</label>
-        <input type="text" name="full-name" required placeholder="Full Name"class="w-full bg-[#eee] text-[#333] p-2 rounded-md">
-      </div>
-      <div>
-        <label class="block mb-1 font-medium">Email</label>
-        <input type="email" name="email" required placeholder="Email"class="w-full bg-[#eee] text-[#333] p-2 rounded-md">
-      </div>
-      <div>
-        <label class="block mb-1 font-medium">School Name</label>
-        <input type="text" name="school-name" value="<?= htmlspecialchars($schoolName) ?>"  class="w-full bg-[#eee] text-[#333] p-2 rounded-md" readonly>
-      </div>
-      <div>
-        <label class="block mb-1 font-medium">Password</label>
-        <input type="password" name="password" required placeholder="Password" class="w-full bg-[#eee] text-[#333] p-2 rounded-md">
-      </div>
-      <div class="flex justify-between items-center">
-        <button type="submit" class="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition cursor-pointer">
-          Register Teacher
-        </button>
-        <a href="index.php" class="text-blue-500 underline">Back to Dashboard</a>
-      </div>
-    </form>
+  <div>
+    <label class="block mb-1 font-medium">Full Name</label>
+    <input type="text" name="full-name" required placeholder="Full Name" class="w-full bg-[#eee] text-[#333] p-2 rounded-md">
+  </div>
+  <div>
+    <label class="block mb-1 font-medium">Email</label>
+    <input type="email" name="email" required placeholder="Email" class="w-full bg-[#eee] text-[#333] p-2 rounded-md">
+  </div>
+  <div>
+    <label class="block mb-1 font-medium">School Name</label>
+    <input type="text" name="school-name" value="<?= htmlspecialchars($schoolName) ?>" class="w-full bg-[#eee] text-[#333] p-2 rounded-md" readonly>
+  </div>
+  <div>
+    <label class="block mb-1 font-medium">Password</label>
+    <input type="password" name="password" required placeholder="Password" class="w-full bg-[#eee] text-[#333] p-2 rounded-md">
+  </div>
+  <div>
+    <label class="block mb-1 font-medium">Subjects Taught</label>
+    <textarea name="subjects" required placeholder="e.g., Mathematics, English, Science" rows="3" class="w-full bg-[#eee] text-[#333] p-2 rounded-md resize-none"></textarea>
+  </div>
+  <div class="flex justify-between items-center">
+    <button type="submit" class="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition cursor-pointer">
+      Register Teacher
+    </button>
+    <a href="index.php" class="text-blue-500 underline">Back to Dashboard</a>
+  </div>
+</form>
   </div>
 </body>
 </html>

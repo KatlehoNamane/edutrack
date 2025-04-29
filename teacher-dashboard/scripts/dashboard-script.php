@@ -40,7 +40,7 @@ if (!empty($_GET['search'])) {
     $term = mysqli_real_escape_string($conn, trim($_GET['search']));
     $conditions[] = "
       (
-        email      LIKE '%$term%'
+        last_name      LIKE '%$term%'
         OR
         student_number LIKE '%$term%'
       )

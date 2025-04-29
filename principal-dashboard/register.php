@@ -32,6 +32,10 @@
           <input type="text" placeholder="School name" name="school-name" required>
           <i class='bx bxs-school'></i>
         </div>
+        <div>
+        <label class="block mb-1 font-medium">School Subjects</label>
+        <textarea name="subjects" required placeholder="e.g., Mathematics, English, Science" rows="3" class="w-full bg-[#eee] text-[#333] p-2 rounded-md resize-none"></textarea>
+      </div>
         <div class="input-box">
           <input type="password" placeholder="Password" required>
           <i class='bx bxs-lock-alt'></i>

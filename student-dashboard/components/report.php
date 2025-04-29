@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 // Only students and principals may access
 if (!isset($_SESSION['user_id'], $_SESSION['role'])

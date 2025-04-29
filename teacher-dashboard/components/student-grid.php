@@ -1,8 +1,30 @@
 <?php
-include ".../db/db_config.php"
+// session_start();
+require_once dirname(__DIR__, 2) . '/db/db_config.php';
 ?>
 <?php
-// Database connection assumed already done above this code (e.g., $conn = new mysqli(...))
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// --- get school subjects ---
+
+// Fetch school subjects
+$schoolName = $_SESSION['school_name'];
+$subjectSql = "SELECT subject FROM school_subjects WHERE school_name = '$schoolName'";
+$subjectRes = $conn->query($subjectSql);
+$schoolSubjects = [];
+
+if ($subjectRes && $subjectRes->num_rows > 0) {
+    while ($row = $subjectRes->fetch_assoc()) {
+        $schoolSubjects[] = $row['subject'];
+    }
+}
+
+$_SESSION['school_subjects'] = $schoolSubjects;
 
 // --- Pagination setup ---
 $studentsPerPage = 10; // How many students per page
@@ -17,6 +39,14 @@ $totalPages = ceil($totalStudents / $studentsPerPage);
 
 // Fetch students for current page
 $result = $conn->query("SELECT * FROM users WHERE role = 'STUDENT' LIMIT $studentsPerPage OFFSET $offset");
+
+$subjectsQuery = '';
+  if (isset($_SESSION['subjects']) && is_array($_SESSION['subjects'])) {
+      foreach ($_SESSION['subjects'] as $subject) {
+          $subjectsQuery .= '&subjects[]=' . urlencode($subject);
+      }
+  }
+
 ?>
 
 <div class="overflow-x-auto">
@@ -26,6 +56,7 @@ $result = $conn->query("SELECT * FROM users WHERE role = 'STUDENT' LIMIT $studen
         <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Name</th>
         <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Student Number</th>
         <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Role</th>
+        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Subjects</th>
         <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">School</th>
         <th class="px-6 py-3 text-center text-sm font-medium text-gray-700">Actions</th>
       </tr>
@@ -40,28 +71,22 @@ $result = $conn->query("SELECT * FROM users WHERE role = 'STUDENT' LIMIT $studen
             <?= htmlspecialchars($row['student_number'] ?? '—') ?>
           </td>
           <td class="px-6 py-4 whitespace-nowrap">
-            <?= htmlspecialchars($row['role']) ?>
+            <?= capitalizeFirst(htmlspecialchars($row['role'])) ?>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+          <?= htmlspecialchars(implode(', ', $schoolSubjects)) ?>
           </td>
           <td class="px-6 py-4 whitespace-nowrap">
             <?= htmlspecialchars($row['school_name']) ?>
           </td>
           <td class="px-6 py-4 whitespace-nowrap text-center space-x-2">
-            <a href="../report.php?student_id=<?= urlencode($row['id']) ?>" 
+            <a href="add-marks.php?student_id=<?= urlencode($row['id']) . $subjectsQuery ?>&student_name=<?= htmlspecialchars($row['first_name'] . ' ' . $row['last_name'])?>"
                class="inline-block bg-blue-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-blue-600">
-              Create Report
+              Add Marks
             </a>
-            <a href="edit_user.php?id=<?= urlencode($row['id']) ?>" 
+            <a href="edit-marks.php?student_id=<?= urlencode($row['id']) ?>" 
                class="inline-block bg-orange-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-orange-600">
-              Edit
-            </a>
-            <a href="?delete_id=<?= urlencode($row['id']) ?>" 
-               onclick="return confirm('Delete this user?')"
-               class="inline-block bg-red-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-red-600">
-              Delete
-            </a>
-            <a href="save_student.php?id=<?= urlencode($row['id']) ?>" 
-               class="inline-block bg-green-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-green-600">
-              See Reports
+              Edit Marks
             </a>
           </td>
         </tr>
@@ -93,3 +118,9 @@ $result = $conn->query("SELECT * FROM users WHERE role = 'STUDENT' LIMIT $studen
     <?php endif; ?>
   </div>
 </div>
+
+<?php 
+if (isset($conn)) {
+  $conn->close();
+}
+?>

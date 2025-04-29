@@ -90,7 +90,6 @@
       <a href="index.php"><button class="nav-btn md:ml-2">Home</button></a>
       <a href="schools.php"><button class="nav-btn">Schools</button></a>
       <a href="contact.php"><button class="nav-btn">Contact Us</button></a>
-      <a href="#"><button class="nav-btn">Login</button></a>
     </div>
 
     <button id="menuButton">☰ Dashboards</button>
@@ -103,10 +102,6 @@
   <a href="#">Contact</a>
 </div>
 
-    <!-- <div class="menu hidden md:block">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-align-justify-icon lucide-align-justify"><path d="M3 12h18"/><path d="M3 18h18"/><path d="M3 6h18"/></svg>
-       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg> 
-    </div> -->
 </div>
   <script src="script.js"></script>
   <script>
@@ -127,8 +122,3 @@ closeButton.addEventListener('click', () => {
 
 </body>
 </html>
-
-<!-- you can use the commented out svg if you want, it's the 3 dotted one -->
-<!-- im sorry, i feel like im too involved in the project and sometimes i feel like i force my preferences onto you, im sorry -->
-<!-- I love you -->
- <!-- I like the animation on the navbar too -->

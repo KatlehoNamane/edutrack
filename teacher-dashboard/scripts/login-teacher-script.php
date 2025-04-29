@@ -18,6 +18,21 @@ if ($res && $res->num_rows === 1) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['role'] = $user['role'];
             $_SESSION['school_name'] = $user['school_name'];
+
+            // Fetch subjects taught by the teacher
+            $teacherId = $user['id'];
+            $subjectSql = "SELECT subject FROM teacher_subjects WHERE teacher_id = '$teacherId'";
+            $subjectRes = $conn->query($subjectSql);
+            $subjects = [];
+
+            if ($subjectRes && $subjectRes->num_rows > 0) {
+                while ($row = $subjectRes->fetch_assoc()) {
+                    $subjects[] = $row['subject'];
+                }
+            }
+
+            $_SESSION['subjects'] = $subjects;
+
             header("Location: ../dashboard.php");
             exit;
         } else {
