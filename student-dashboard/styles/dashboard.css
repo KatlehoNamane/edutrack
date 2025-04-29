@@ -1,0 +1,145 @@
+body{
+ background-color: #eee;  
+ font-family:"DM Sans" ;
+}
+
+.head{
+font-size:25px;
+margin-top:30px;
+text-align:center
+}
+
+.heading{
+    font-size:50px;
+    text-align:center; 
+    color:rgba(250, 118, 23, .9) ; 
+}
+
+.navbar {
+    display: flex;
+    /* padding: 10px 5px; */
+    gap: 10px; 
+    margin-left:30px
+  }
+
+  
+  .navbar a {
+    text-decoration: none;
+  }
+  
+  .nav-btn {
+    background: none;
+    border: none;
+    color:rgba(250, 118, 23, .9) ;
+    padding: 10px 20px;
+    font-family:"DM Sans";
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .nav-btn:hover {
+    background-color:rgba(245, 154, 89, 0.9) ;
+    transform: translateY(-2px);
+  }
+  
+  .nav-btn.active {
+    background-color:rgba(250, 118, 23, .9);
+    animation: fadeSlideIn 0.5s ease;
+    color:white;
+    font-family:"DM Sans";
+  }
+  #menuButton {
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: rgba(250, 118, 23, 0.9);
+    color: white;
+    border: none;
+    /* margin: 10px; */
+    border-radius: 5px;
+    position: fixed;
+    /* top: 10px;*/
+    right: 35px; 
+    z-index: 1100;
+    transition: background-color 0.3s ease;
+  }
+  
+  #menuButton:hover {
+    background-color: rgba(250, 118, 23, 1);
+  }
+  
+  .sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    background-color: rgba(250, 118, 23, 0.9);
+    overflow-x: hidden;
+    transition: width 0.4s ease;
+    padding-top: 60px;
+  }
+  
+  .sidebar.open {
+    width: 250px;
+    animation: bounceIn 0.5s ease; /* Add the animation here */
+  }
+  
+  /* .sidebar a {
+    padding: 10px 32px;
+    display: block;
+    text-decoration: none;
+    font-size: 16px;
+    color: white;
+    transition: color 0.3s ease;
+  } */
+  
+  .sidebar a:hover {
+    color: #000;
+  }
+  
+  .closebtn {
+    position: absolute;
+    top: 10px;
+    right:10px;
+    font-size: 50px;
+    color: white;
+    text-decoration: none;
+  }
+  
+  /* BOUNCE ANIMATION */
+  @keyframes bounceIn {
+    0% {
+      transform: translateX(100%);
+    }
+    60% {
+      transform: translateX(-30px);
+    }
+    80% {
+      transform: translateX(10px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  .top{
+    display:flex;
+    
+    margin-top:30px
+  }
+
+  .report{
+    margin-left:70px;
+    margin-top:40px;
+    font-size:30px;
+    font-weight: bold;
+  }
+
+  table{
+    border:"2"
+  }

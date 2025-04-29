@@ -1,0 +1,122 @@
+body{
+    font-family:"DM Sans";
+    background-color:#eee;
+}
+
+.heading{
+  font-size:40px;
+  margin-left:40px;
+  margin-top:50px;
+  color:rgba(250, 118, 23, .9) 
+}
+
+.description{
+    font-size:20px;
+    margin-left:40px; 
+    margin-top:50px;
+    text-align:left;
+    display:flex;
+    flex-direction:row;
+  }
+
+  .normal-intro{
+    font-size:20px;
+    margin-left:10px;
+  }
+
+  .colored-intro{
+    font-size:20px;
+    /* margin-left:10px; */
+    color:rgba(250, 118, 23, .9) 
+  }
+
+  .description2{
+    font-size:20px;
+    margin-left:40px; 
+    text-align:left;
+    display:flex;
+    flex-direction:row;
+  }
+  
+  .description3{
+    margin-left:40px; 
+  }
+
+  /* .first-div{
+    display:flex;
+    align-items: center;
+    justify-content
+  } */
+
+  .hero-section-para {
+    font-size:20px;
+  }
+
+  .register-btn{
+    background-color:rgba(250, 118, 23, .9) ;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    color:white;
+    margin-left:40px;
+    /* margin-top:35px; */
+    width:150px;
+    text-align:center
+    
+  }
+
+  .review-heading{
+    color:rgba(250, 189, 23, 0.9) ;
+    font-size:30px;
+    margin-top:70px
+  }
+
+  .middle-text{
+    text-align:center;
+  }
+
+  .review-box{
+  
+      width: 500px;
+      border-radius: 0.6em;
+      padding: 20px;
+      background-color: transparent;
+      border: 2px solid rgba(250, 118, 23, .9) ;
+      box-shadow: 0px 0px 5px rgba(250, 118, 23, .9); 
+      margin: 20px auto; 
+      margin-top:80px
+  }
+
+  h3{
+    color:rgba(250, 118, 23, .9) ;
+  }
+
+  .reviews{
+    margin-top:20px
+  }
+
+  .stars{
+    display:flex;
+    margin-left:160px;
+    margin-bottom:30px
+  }
+  .suggestion{
+    background-color:rgba(250, 118, 23, .9) ;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    color:white;
+    /* margin-top:35px; */
+    width:300px;
+    text-align:center;
+
+    
+  }
+
+  .suggest{
+    color:rgba(250, 118, 23, .9);
+    font-size: 30px
+  }
+
